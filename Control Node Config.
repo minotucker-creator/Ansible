@@ -1,0 +1,2 @@
+#Install Ansible package in Azure SSH CLI
+python3 -m pip install --user ansible
