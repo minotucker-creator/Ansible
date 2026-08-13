@@ -1,2 +1,24 @@
 #Install Ansible package in Azure SSH CLI
-python3 -m pip install --user ansible
+  python3 -m pip install --user ansible
+
+#Verify installion
+  ansible --version
+
+#Install tool package
+  python3 -m pip install --user ansible-lint
+
+#Azure specific SDK (Software Development Kit)
+  python3 -m pip install --user azure-cli azure-mgmt-compute azure-mgmt-resource
+
+#Azure specific Ansible Galaxy Collections
+  ansible-galaxy collection install azure.azcollection
+
+#SSH Key Pair on the control node to enable passwordless authentication to managed hosts
+  ssh-keygen -t ed25519 -C "ansible-control-node"
+  File in which to save key pair: /root/.ssh/ansible_ed25519
+
+#Directory structure for workspace
+  mkdir -p ~/ansible/{inventories,roles,playbooks}
+
+#Local configuration file in project directory
+touch ~/ansible/ansible.cfg
