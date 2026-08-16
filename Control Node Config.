@@ -22,3 +22,38 @@
 
 #Local configuration file in project directory
 touch ~/ansible/ansible.cfg
+
+#Display public key to copy from control node
+cat ~/.ssh/id_ed111111.pub
+
+#Prepare SSH directory on managed node
+mkdir -p ~/.ssh
+
+#Add control node public key to managed node authorized keys
+nano ~/.ssh/authorized_keys
+
+#Apply strict POSIX security permissions on managed node
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+
+#Verify passwordless SSH connection from control node
+ssh username@managed-node-IP-Address
+
+#Remove inventory directory if created as folder by mistake
+rm -rf inventory.ini
+
+#Create inventory text file on control node
+nano inventory.ini
+
+#Add host definitions and user variables to inventory.ini
+[servers]
+Managed nodeIP ansible_user=username
+
+#Test Ansible connectivity using the ping module
+ansible servers -i inventory.ini -m ping
+
+#Run first ad-hoc system command across host group
+ansible servers -i inventory.ini -a "uptime"
+
+#Create initial YAML automation playbook
+nano first_playbook.yml
